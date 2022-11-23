@@ -212,9 +212,8 @@ bindsym Mod1+Control+c exec clipster -s
 bindsym Mod1+Control+Delete exec --no-startup-id sgtk-bar
 
 # Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
 
 # start a terminal
 bindsym Mod1+Return exec i3-sensible-terminal
@@ -292,9 +291,9 @@ mode "ratpoison" {
 # Web browser bound to w
 bindsym w exec $webBrowser, mode "default"
 # reload the configuration file
-bindsym Control+; reload, mode "default"
+bindsym Control+semicolon reload, mode "default"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym Control+: restart, mode "default"
+bindsym Control+colon restart, mode "default"
 # exit i3 (logs you out of your X session)
 bindsym Control+q exec "yad --image "dialog-question" --title 'I38' --button=yes:0 --button=no:1 --text 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' && exit i3
 bindsym Escape mode "default"
