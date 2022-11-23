@@ -15,11 +15,15 @@ def on_mode(self,i3):
 #    elif mode == 'default':
 #        system('play -qV0 "|sox -np synth .07 sq 400" "|sox -np synth .5 sq 800" fade h 0 .5 .5 norm -20 reverse')
 
+def on_workspace_focus(self,i3):
+    system('play -qnV0 synth pi fade 0 .25 .15 pad 0 1 reverb overdrive riaa norm -8 speed 1')
+
 i3 = i3ipc.Connection()
 
 i3.on('window::new', on_new_window)
 i3.on('mode', on_mode)
 # get current mode:
 # var = i3ipc.ModeEvent(data)
+i3.on('workspace::focus', on_workspace_focus)
 
 i3.main()
