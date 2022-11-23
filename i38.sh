@@ -128,6 +128,7 @@ fi
 # Array of command line arguments
 declare -A command=(
     [h]="This help screen."
+    [x]="Generate ~/.xinitrc and ~/.xprofile."
 )
 
 # Convert the keys of the associative array to a format usable by getopts
@@ -136,15 +137,11 @@ args="${args//[[:space:]]/}"
 while getopts "${args}" i ; do
     case "$i" in
         h) help;;
+        x) write_xinitrc
     esac
 done
 
 
-# Create .xinitrc file if requested
-if [[ "$1" = "-x" || "$1" = "--xinitrc" ]]; then
-write_xinitrc
-exit 0
-fi
 # Make sure rc variable is empty
 unset rc
 # Set  path for helper scripts.
