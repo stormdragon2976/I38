@@ -291,9 +291,10 @@ mode "ratpoison" {
 # Web browser bound to w
 bindsym w exec $webBrowser, mode "default"
 # reload the configuration file
-bindsym Control+semicolon exec bash -c 'i3-msg -t run_command reload && spd-say "I38 Configuration reloaded."', mode "default"
+bindsym Control+semicolon exec bash -c 'i3-msg -t run_command reload && spd-say -P important -Cw "I38 Configuration reloaded."', mode "default"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym Control+colon restart, mode "default"
+bindsym Control+colon exec bash -c 'i3-msg -t run_command restart && spd-say -P important -Cw "I3 restarted."', mode "default"
 # exit i3 (logs you out of your X session)
 bindsym Control+q exec "yad --image "dialog-question" --title 'I38' --button=yes:0 --button=no:1 --text 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' && exit i3
 bindsym Escape mode "default"
