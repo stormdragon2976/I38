@@ -18,6 +18,9 @@ def on_mode(self,i3):
 def on_workspace_focus(self,i3):
     system('play -qnV0 synth pi fade 0 .25 .15 pad 0 1 reverb overdrive riaa norm -8 speed 1')
 
+def on_workspace_move(self,i3):
+    system('play -qnV0 synth pi fade 0 .25 .15 pad 0 1 reverb overdrive riaa norm -8 speed 1 reverse')
+
 i3 = i3ipc.Connection()
 
 i3.on('window::new', on_new_window)
@@ -25,5 +28,5 @@ i3.on('mode', on_mode)
 # get current mode:
 # var = i3ipc.ModeEvent(data)
 i3.on('workspace::focus', on_workspace_focus)
-
+i3.on('window::move', on_workspace_move)
 i3.main()
