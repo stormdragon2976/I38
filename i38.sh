@@ -161,6 +161,9 @@ dex=1
 if command -v dex &> /dev/null ; then
     export dex=$(yesno "Would you like to autostart applications with dex?")
 fi
+if [[ $dex -eq 0 ]]; then
+    dex -t "${XDG_CONFIG_HOME:-${HOME}/.config}/autostart" -c $(command -v orca)
+fi
 brlapi=1
 if [[ $dex -eq 1 ]]; then
     brlapi=$(yesno "Do you want to use a braille display with Orca?")
