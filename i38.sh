@@ -291,7 +291,7 @@ mode "ratpoison" {
 # Web browser bound to w
 bindsym w exec $webBrowser, mode "default"
 # reload the configuration file
-bindsym Control+semicolon reload, mode "default"
+bindsym Control+semicolon exec bash -c 'i3-msg -t run_command reload && spd-say "I38 Configuration reloaded."', mode "default"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym Control+colon restart, mode "default"
 # exit i3 (logs you out of your X session)
@@ -302,7 +302,7 @@ bindsym Escape mode "default"
 
 # Auto start section
 $(if [[ $sounds -eq 0 ]]; then
-    echo "exec --no-startup-id ${i3Path}/scripts/sound.py"
+    echo "exec_always --no-startup-id ${i3Path}/scripts/sound.py"
 fi
 if [[ $dex -eq 0 ]]; then
     echo '# Start XDG autostart .desktop files using dex. See also'
