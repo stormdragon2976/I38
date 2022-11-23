@@ -132,10 +132,15 @@ while getopts "${args}" i ; do
     esac
 done
 
-# Autostart applications with dex
+# Configuration questions
+escapeKey="$(menulist "Ratpoison mode key:" Control+t Control+z -Control+Escape Alt+Escape Control+Space Super_L Super_R)"
 dex=1
 if command -v dex &> /dev/null ; then
     export dex=$(yesno "Would you like to autostart applications with dex?")
+fi
+brlapi=1
+if [[ $dex -eq 1 ]]; then
+    brlapi=$(yesno "Do you want to use a braille display with Orca?")
 fi
 
 if [[ -d "${i3Path}" ]]; then
@@ -252,12 +257,17 @@ bindsym Control+Shift+F8 move container to workspace number \$ws8
 bindsym Control+Shift+F9 move container to workspace number \$ws9
 bindsym Control+Shift+F10 move container to workspace number \$ws10
 
+
+bindsym $escapeKey mode "ratpoison"
+mode "ratpoison" {
 # reload the configuration file
-bindsym Mod1+Shift+c reload
+bindsym Control+; reload, mode "default"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym Mod1+Shift+r restart
+bindsym Control+: restart, mode "default"
 # exit i3 (logs you out of your X session)
-bindsym Mod1+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym Control+q exec "yad --image "dialog-question" --title 'I38' --button=yes:0 --button=no:1 --text 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' && exit i3
+}
+
 
 $(if [[ $dex -eq 0 ]]; then
     echo '# Start XDG autostart .desktop files using dex. See also'
@@ -268,6 +278,9 @@ else
     echo 'exec clipster -d'
 echo 'exec /usr/lib/notification-daemon-1.0/notification-daemon'
     echo 'exec orca'
+    if [[ $brlapi -eq 0 ]]; then
+        echo 'xbrlapi --quiet'
+    fi
 fi)
 
 # Start i3bar to display a workspace bar (plus the system information i3status
