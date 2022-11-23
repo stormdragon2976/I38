@@ -115,10 +115,16 @@ export QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1
 EOF
 }
 
+update_scripts() {
+    cp -rv scripts/ "${i3Path}/" | dialog --backtitle "I38" --progressbox "Updating scripts..." -1 -1
+    exit 0
+}
+
 
 # Array of command line arguments
 declare -A command=(
     [h]="This help screen."
+    [u]="Copy over the latest version of scripts."
     [x]="Generate ~/.xinitrc and ~/.xprofile."
 )
 
@@ -128,6 +134,7 @@ args="${args//[[:space:]]/}"
 while getopts "${args}" i ; do
     case "$i" in
         h) help;;
+        u) update_scripts;;
         x) write_xinitrc
     esac
 done
@@ -187,6 +194,7 @@ cat << EOF > ${i3Path}/config
 # layout, use the i3-config-wizard
 #
 
+workspace_layout tabbed
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:monospace 8
