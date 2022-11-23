@@ -134,6 +134,7 @@ done
 
 # Configuration questions
 escapeKey="$(menulist "Ratpoison mode key:" Control+t Control+z -Control+Escape Alt+Escape Control+Space Super_L Super_R)"
+escapeKey="${escapeKey//Alt/Mod1}"
 dex=1
 if command -v dex &> /dev/null ; then
     export dex=$(yesno "Would you like to autostart applications with dex?")
