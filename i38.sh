@@ -135,6 +135,21 @@ done
 # Configuration questions
 escapeKey="$(menulist "Ratpoison mode key:" Control+t Control+z -Control+Escape Alt+Escape Control+Space Super_L Super_R)"
 escapeKey="${escapeKey//Alt/Mod1}"
+unset programList
+for i in brave chromium epiphany firefox google-chrome-stable midori seamonkey ; do
+    if command -v ${i/#-/} &> /dev/null ; then
+        if [ -n "$programList" ]; then
+            programList="$programList $i"
+        else
+            programList="$i"
+        fi
+    fi
+done
+if [ "$programList" != "${programList// /}" ]; then
+    webBrowser="$(menulist "Web browser:" $programList)"
+else
+    webBrowser="${programList/#-/}"
+fi
 dex=1
 if command -v dex &> /dev/null ; then
     export dex=$(yesno "Would you like to autostart applications with dex?")
@@ -263,6 +278,8 @@ bindsym Control+Shift+F10 move container to workspace number \$ws10
 
 bindsym $escapeKey mode "ratpoison"
 mode "ratpoison" {
+# Web browser bound to w
+bindsym w exec $webBrowser, mode "default"
 # reload the configuration file
 bindsym Control+; reload, mode "default"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
