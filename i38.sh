@@ -9,7 +9,7 @@ i3Path="${XDG_CONFIG_HOME:-$HOME/.config}/i3"
 export DIALOGOPTS='--no-lines --visit-items'
 
 # Check to make sure minimum requirements are installed.
-for i in dialog nwg-launchers yad ; do
+for i in dialog sgtk-menu yad ; do
     if ! command -v "$i" &> /dev/null ; then
         missing+=("$i")
     fi
@@ -53,6 +53,18 @@ yesno() {
     # Args: Question to user.
     dialog --clear --title "Strychnine" --yesno "$*" -1 -1 --stdout && return 0
 } 
+
+help() {
+    echo "${0##*/}"
+    echo "Released under the terms of the WTFPL License: http://www.wtfpl.net"
+    echo -e "This is a Stormux project: https://stormux.org\n"
+    echo -e "Usage:\n"
+    echo "With no arguments, create the i3 configuration."
+    for i in "${!command[@]}" ; do
+        echo "-${i/:/ <parameter>}: ${command[${i}]}"
+    done | sort
+    exit 0
+}
 
 write_xinitrc()
 {
@@ -112,6 +124,21 @@ else
 rc="${rc}"$'\n'"$@"
 fi
 }
+
+# Array of command line arguments
+declare -A command=(
+    [h]="This help screen."
+)
+
+# Convert the keys of the associative array to a format usable by getopts
+args="${!command[*]}"
+args="${args//[[:space:]]/}"
+while getopts "${args}" i ; do
+    case "$i" in
+        h) help;;
+    esac
+done
+
 
 # Create .xinitrc file if requested
 if [[ "$1" = "-x" || "$1" = "--xinitrc" ]]; then

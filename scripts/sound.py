@@ -15,5 +15,7 @@ i3 = i3ipc.Connection()
 
 i3.on('window::new', on_new_window)
 i3.on('mode', on_mode)
+# get current mode:
+# var = i3ipc.ModeEvent(data)
 
 i3.main()
