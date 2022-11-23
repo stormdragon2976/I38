@@ -143,6 +143,8 @@ brlapi=1
 if [[ $dex -eq 1 ]]; then
     brlapi=$(yesno "Do you want to use a braille display with Orca?")
 fi
+sounds=1
+sounds=$(yesno "Do you want window event sounds?")
 
 if [[ -d "${i3Path}" ]]; then
     yesno "This will replace your existing configuration at ${i3Path}. Do you want to continue?" || exit 0
@@ -271,7 +273,11 @@ bindsym Escape mode "default"
 }
 
 
-$(if [[ $dex -eq 0 ]]; then
+# Auto start section
+$(if [[ $sounds -eq 0 ]]; then
+    echo "exec --no-startup-id ${i3Path}/scripts/sound.py"
+fi
+if [[ $dex -eq 0 ]]; then
     echo '# Start XDG autostart .desktop files using dex. See also'
     echo '# https://wiki.archlinux.org/index.php/XDG_Autostart'
     echo 'exec --no-startup-id dex --autostart --environment i3'
