@@ -29,7 +29,7 @@ menulist() {
     for i in "${@}" ; do
         menuList+=("$i" "$i")
     done
-    dialog --title "Strychnine" \
+    dialog --title "I38" \
         --backtitle "Use the arrow keys to find the option you want, and enter to select it." \
         --clear \
         --no-tags \
@@ -43,7 +43,7 @@ menulist() {
 # $3 maximum value
 # $4 Default value
 rangebox() {
-    dialog --title "Strychnine" \
+    dialog --title "I38" \
     --backtitle "Use the arrow keys to select a number, then press enter." \
     --rangebox "$1" -1 -1 $2 $3 $4 --stdout
 }
@@ -51,7 +51,7 @@ rangebox() {
 yesno() {
     # Returns: Yes 0 or No 1
     # Args: Question to user.
-    dialog --clear --title "Strychnine" --yesno "$*" -1 -1 --stdout && return 0
+    dialog --clear --title "I38" --yesno "$*" -1 -1 --stdout && return 0
 } 
 
 help() {
@@ -132,7 +132,12 @@ while getopts "${args}" i ; do
     esac
 done
 
-# Place holder. Configuration questions go here.
+# Autostart applications with dex
+dex=1
+if command -v dex &> /dev/null ; then
+    export dex=$(yesno "Would you like to autostart applications with dex?")
+fi
+
 if [[ -d "${i3Path}" ]]; then
     yesno "This will replace your existing configuration at ${i3Path}. Do you want to continue?" || exit 0
 fi
@@ -162,15 +167,6 @@ cat << EOF > ${i3Path}/config
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:monospace 8
-
-# Start XDG autostart .desktop files using dex. See also
-# https://wiki.archlinux.org/index.php/XDG_Autostart
-# exec --no-startup-id dex --autostart --environment i3
-
-# Startup applications
-exec clipster -d
-exec /usr/lib/notification-daemon-1.0/notification-daemon
-exec orca
 
 # Run dialog
 bindsym Mod1+F2 exec grun
@@ -262,6 +258,17 @@ bindsym Mod1+Shift+c reload
 bindsym Mod1+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym Mod1+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+$(if [[ $dex -eq 0 ]]; then
+    echo '# Start XDG autostart .desktop files using dex. See also'
+    echo '# https://wiki.archlinux.org/index.php/XDG_Autostart'
+    echo 'exec --no-startup-id dex --autostart --environment i3'
+else
+    echo '# Startup applications'
+    echo 'exec clipster -d'
+echo 'exec /usr/lib/notification-daemon-1.0/notification-daemon'
+    echo 'exec orca'
+fi)
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
