@@ -369,7 +369,7 @@ bindsym Escape mode "default"
 $(if [[ $sounds -eq 0 ]]; then
     echo "exec_always --no-startup-id ${i3Path}/scripts/sound.py"
     if [[ $brlapi -eq 0 ]]; then
-        echo 'exec xbrlapi --quiet'
+        echo 'exec --no-startup-id xbrlapi --quiet'
     fi
 fi
 if [[ $dex -eq 0 ]]; then
