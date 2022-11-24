@@ -10,23 +10,23 @@ i3 = i3ipc.Connection()
 
 
 def on_new_window(self,i3):
-    system('play -n synth .25 sin 440:880 sin 480:920 remix - norm -3 pitch -500')
+    system('play -n synth .25 sin 440:880 sin 480:920 remix - norm -3 pitch -500 &')
 
 def on_mode(self,event):
     mode= event.change
     if mode == 'default':
-        system('play -qV0 "|sox -np synth .07 sq 400" "|sox -np synth .5 sq 800" fade h 0 .5 .5 norm -20 reverse')
+        system('play -qV0 "|sox -np synth .07 sq 400" "|sox -np synth .5 sq 800" fade h 0 .5 .5 norm -20 reverse &')
     else:
-            system('play -qV0 "|sox -np synth .07 sq 400" "|sox -np synth .5 sq 800" fade h 0 .5 .5 norm -20')
+            system('play -qV0 "|sox -np synth .07 sq 400" "|sox -np synth .5 sq 800" fade h 0 .5 .5 norm -20 &')
 
 def on_workspace_focus(self,i3):
-    system('play -qnV0 synth pi fade 0 .25 .15 pad 0 1 reverb overdrive riaa norm -8 speed 1')
+    system('play -qnV0 synth pi fade 0 .25 .15 pad 0 1 reverb overdrive riaa norm -8 speed 1 &')
 
 def on_workspace_move(self,i3):
-    system('play -qnV0 synth pi fade 0 .25 .15 pad 0 1 reverb overdrive riaa norm -8 speed 1 reverse')
+    system('play -qnV0 synth pi fade 0 .25 .15 pad 0 1 reverb overdrive riaa norm -8 speed 1 reverse &')
 
 def on_restart(self,i3):
-    system('play -qn synth .25 saw 500:1200 fade .1 .25 .1 norm -8')
+    system('play -qn synth .25 saw 500:1200 fade .1 .25 .1 norm -8 &')
 
 i3 = i3ipc.Connection()
 
