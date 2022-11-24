@@ -26,8 +26,6 @@ i3 = i3ipc.Connection()
 
 i3.on('window::new', on_new_window)
 i3.on(Event.MODE, on_mode)
-# get current mode:
-# var = i3ipc.ModeEvent(data)
 i3.on('workspace::focus', on_workspace_focus)
 i3.on('window::move', on_workspace_move)
 i3.main()
