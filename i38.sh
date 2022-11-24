@@ -343,6 +343,9 @@ bindsym w exec $webBrowser, mode "default"
 $(if command -v mumble &> /dev/null ; then
     echo 'bindsym m exec $(command -v mumble), mode "default"'
 fi)
+$(if command -v ocrdesktop &> /dev/null ; then
+    echo 'bindsym Print exec $(command -v ocrdesktop), mode "default"'
+fi)
 $(if command -v pidgin &> /dev/null ; then
     echo 'bindsym p exec $(command -v pidgin), mode "default"'
 fi)
@@ -365,7 +368,7 @@ bindsym Escape mode "default"
 $(if [[ $sounds -eq 0 ]]; then
     echo "exec_always --no-startup-id ${i3Path}/scripts/sound.py"
     if [[ $brlapi -eq 0 ]]; then
-        echo 'xbrlapi --quiet'
+        echo 'exec xbrlapi --quiet'
     fi
 fi
 if [[ $dex -eq 0 ]]; then
