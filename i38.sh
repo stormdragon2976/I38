@@ -346,6 +346,9 @@ fi)
 $(if command -v pidgin &> /dev/null ; then
     echo 'bindsym p exec $(command -v pidgin), mode "default"'
 fi)
+$(if command -v transfersh &> /dev/null ; then
+    echo 'bindsym t exec bash -c '"'"'fileName="$(yad --title "I38 Upload File" --file)" && url="$(transfersh "${fileName}" | tee >(yad --title "I38 - Uploading ${fileName##*/} ..." --progress --pulsate --auto-close))" && echo "${url#*saved at: }" | tee >(yad --title "I38 - Upload URL" --show-cursor --show-uri --button yad-close --sticky --text-info) >(xclip -selection clipboard)'"', mode \"default\""
+fi)
 # Restart orca
 bindsym Shift+o exec $(command -v orca) --replace, mode "default"
 # reload the configuration file
