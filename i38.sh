@@ -308,28 +308,28 @@ set \$ws9 "9"
 set \$ws10 "10"
 
 # switch to workspace
-bindsym Control+F1 workspace number \$ws1
-bindsym Control+F2 workspace number \$ws2
-bindsym Control+F3 workspace number \$ws3
-bindsym Control+F4 workspace number \$ws4
-bindsym Control+F5 workspace number \$ws5
-bindsym Control+F6 workspace number \$ws6
-bindsym Control+F7 workspace number \$ws7
-bindsym Control+F8 workspace number \$ws8
-bindsym Control+F9 workspace number \$ws9
-bindsym Control+F10 workspace number \$ws10
+bindsym Control+F1 workspace number \$ws1, exec spd-say -P important -Cw "workspace 1"
+bindsym Control+F2 workspace number \$ws2, exec spd-say -P important -Cw "workspace 2"
+bindsym Control+F3 workspace number \$ws3, exec spd-say -P important -Cw "workspace 3"
+bindsym Control+F4 workspace number \$ws4, exec spd-say -P important -Cw "workspace 4"
+bindsym Control+F5 workspace number \$ws5, exec spd-say -P important -Cw "workspace 5"
+bindsym Control+F6 workspace number \$ws6, exec spd-say -P important -Cw "workspace 6"
+bindsym Control+F7 workspace number \$ws7, exec spd-say -P important -Cw "workspace 7"
+bindsym Control+F8 workspace number \$ws8, exec spd-say -P important -Cw "workspace 8"
+bindsym Control+F9 workspace number \$ws9, exec spd-say -P important -Cw "workspace 9"
+bindsym Control+F10 workspace number \$ws10, exec spd-say -P important -Cw "workspace 10"
 
 # move focused container to workspace
-bindsym Control+Shift+F1 move container to workspace number \$ws1
-bindsym Control+Shift+F2 move container to workspace number \$ws2
-bindsym Control+Shift+F3 move container to workspace number \$ws3
-bindsym Control+Shift+F4 move container to workspace number \$ws4
-bindsym Control+Shift+F5 move container to workspace number \$ws5
-bindsym Control+Shift+F6 move container to workspace number \$ws6
-bindsym Control+Shift+F7 move container to workspace number \$ws7
-bindsym Control+Shift+F8 move container to workspace number \$ws8
-bindsym Control+Shift+F9 move container to workspace number \$ws9
-bindsym Control+Shift+F10 move container to workspace number \$ws10
+bindsym Control+Shift+F1 move container to workspace number \$ws1, exec spd-say -P important -Cw "moved to workspace 1"
+bindsym Control+Shift+F2 move container to workspace number \$ws2, exec spd-say -P important -Cw "moved to workspace 2"
+bindsym Control+Shift+F3 move container to workspace number \$ws3, exec spd-say -P important -Cw "moved to workspace 3"
+bindsym Control+Shift+F4 move container to workspace number \$ws4, exec spd-say -P important -Cw "moved to workspace 4"
+bindsym Control+Shift+F5 move container to workspace number \$ws5, exec spd-say -P important -Cw "moved to workspace 5"
+bindsym Control+Shift+F6 move container to workspace number \$ws6, exec spd-say -P important -Cw "moved to workspace 6"
+bindsym Control+Shift+F7 move container to workspace number \$ws7, exec spd-say -P important -Cw "moved to workspace 7"
+bindsym Control+Shift+F8 move container to workspace number \$ws8, exec spd-say -P important -Cw "moved to workspace 8"
+bindsym Control+Shift+F9 move container to workspace number \$ws9, exec spd-say -P important -Cw "moved to workspace 9"
+bindsym Control+Shift+F10 move container to workspace number \$ws10, exec spd-say -P important -Cw "moved to workspace 10"
 
 
 bindsym $escapeKey mode "ratpoison"
