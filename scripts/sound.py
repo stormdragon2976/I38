@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Written by Storm Dragon, Jeremiah, and contributers.
+# Released under the terms of the WTFPL http://www.wtfpl.net
+
 import i3ipc
 from i3ipc import Event
 from os import system

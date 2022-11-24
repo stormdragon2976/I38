@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configures the i3 window manager to make it screen reader accessible
-# Written by Storm Dragon
+# Written by Storm Dragon, Jeremiah, and contributers.
 # Released under the terms of the WTFPL http://www.wtfpl.net
 
 i3Path="${XDG_CONFIG_HOME:-$HOME/.config}/i3"
