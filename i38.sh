@@ -203,9 +203,7 @@ if [[ $dex -eq 0 ]]; then
     dex -t "${XDG_CONFIG_HOME:-${HOME}/.config}/autostart" -c $(command -v orca)
 fi
 brlapi=1
-if [[ $dex -eq 1 ]]; then
-    brlapi=$(yesno "Do you want to use a braille display with Orca?")
-fi
+brlapi=$(yesno "Do you want to use a braille display with Orca?")
 sounds=1
 sounds=$(yesno "Do you want window event sounds?")
 
@@ -351,6 +349,9 @@ bindsym Escape mode "default"
 # Auto start section
 $(if [[ $sounds -eq 0 ]]; then
     echo "exec_always --no-startup-id ${i3Path}/scripts/sound.py"
+    if [[ $brlapi -eq 0 ]]; then
+        echo 'xbrlapi --quiet'
+    fi
 fi
 if [[ $dex -eq 0 ]]; then
     echo '# Start XDG autostart .desktop files using dex. See also'
@@ -361,8 +362,5 @@ else
     echo 'exec clipster -d'
 echo 'exec /usr/lib/notification-daemon-1.0/notification-daemon'
     echo 'exec orca'
-    if [[ $brlapi -eq 0 ]]; then
-        echo 'xbrlapi --quiet'
-    fi
 fi)
 EOF
