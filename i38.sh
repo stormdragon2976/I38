@@ -342,13 +342,13 @@ bindsym f exec $fileBrowser, mode "default"
 # Web browser bound to w
 bindsym w exec $webBrowser, mode "default"
 $(if command -v mumble &> /dev/null ; then
-    echo 'bindsym m exec $(command -v mumble), mode "default"'
+    echo "bindsym m exec $(command -v mumble), mode \"default\""
 fi)
 $(if command -v ocrdesktop &> /dev/null ; then
-    echo 'bindsym Print exec $(command -v ocrdesktop), mode "default"'
+    echo "bindsym Print exec $(command -v ocrdesktop), mode \"default\""
 fi)
 $(if command -v pidgin &> /dev/null ; then
-    echo 'bindsym p exec $(command -v pidgin), mode "default"'
+    echo "bindsym p exec $(command -v pidgin), mode \"default\""
 fi)
 $(if command -v transfersh &> /dev/null ; then
     echo 'bindsym t exec bash -c '"'"'fileName="$(yad --title "I38 Upload File" --file)" && url="$(transfersh "${fileName}" | tee >(yad --title "I38 - Uploading ${fileName##*/} ..." --progress --pulsate --auto-close))" && echo "${url#*saved at: }" | tee >(yad --title "I38 - Upload URL" --show-cursor --show-uri --button yad-close --sticky --text-info) >(xclip -selection clipboard)'"', mode \"default\""
