@@ -332,10 +332,10 @@ bindsym e exec $textEditor, mode "default"
 bindsym f exec $fileBrowser, mode "default"
 # Web browser bound to w
 bindsym w exec $webBrowser, mode "default"
-$(if [[ command -v mumble &> /dev/null ; then
+$(if command -v mumble &> /dev/null ; then
     echo 'bindsym m exec $(command -v mumble), mode "default"'
 fi)
-$(if [[ command -v pidgin &> /dev/null ; then
+$(if command -v pidgin &> /dev/null ; then
     echo 'bindsym p exec $(command -v pidgin), mode "default"'
 fi)
 # reload the configuration file
