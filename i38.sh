@@ -158,7 +158,7 @@ if [ "$programList" != "${programList// /}" ]; then
 else
     webBrowser="${programList/#-/}"
 fi
-webBrowser="$(command -v webBrowser)"
+webBrowser="$(command -v $webBrowser)"
 # Text editor
 unset programList
 for i in geany gedit kate kwrite l3afpad leafpad libreoffice mousepad pluma ; do
@@ -336,6 +336,8 @@ fi)
 $(if command -v pidgin &> /dev/null ; then
     echo 'bindsym p exec $(command -v pidgin), mode "default"'
 fi)
+# Restart orca
+bindsym Shift+o exec $(command -v orca) --replace, mode "default"
 # reload the configuration file
 bindsym Control+semicolon exec bash -c 'i3-msg -t run_command reload && spd-say -P important -Cw "I38 Configuration reloaded."', mode "default"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
