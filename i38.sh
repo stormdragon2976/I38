@@ -251,6 +251,16 @@ bindsym Mod1+Control+Delete exec --no-startup-id sgtk-bar
 bindsym Mod1+XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
 bindsym Mod1+XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
 
+# Music player controls
+# Requires playerctl.
+bindsym XF86AudioRaiseVolume exec --no-startup-id ${i3Path}/scripts/music_controler.sh incvol
+bindsym XF86AudioLowerVolume exec --no-startup-id ${i3Path}/scripts/music_controler.sh decvol
+bindsym XF86AudioPrev exec --no-startup-id ${i3Path}/scripts/music_controler.sh prev
+bindsym XF86AudioMute exec --no-startup-id ${i3Path}/scripts/music_controler.sh pause
+bindsym XF86AudioPlay exec --no-startup-id ${i3Path}/scripts/music_controler.sh play
+bindsym XF86AudioStop exec --no-startup-id ${i3Path}/scripts/music_controler.sh Stop
+bindsym XF86AudioNext exec --no-startup-id ${i3Path}/scripts/music_controler.sh Next
+
 # start a terminal
 bindsym Mod1+Return exec i3-sensible-terminal
 
