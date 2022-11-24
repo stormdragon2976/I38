@@ -142,6 +142,7 @@ done
 # Configuration questions
 escapeKey="$(menulist "Ratpoison mode key:" Control+t Control+z -Control+Escape Alt+Escape Control+Space Super_L Super_R)"
 escapeKey="${escapeKey//Alt/Mod1}"
+# Web browser
 unset programList
 for i in brave chromium epiphany firefox google-chrome-stable midori seamonkey ; do
     if command -v ${i/#-/} &> /dev/null ; then
@@ -157,6 +158,43 @@ if [ "$programList" != "${programList// /}" ]; then
 else
     webBrowser="${programList/#-/}"
 fi
+webBrowser="$(command -v webBrowser)"
+# Text editor
+unset programList
+for i in geany gedit kate kwrite l3afpad leafpad libreoffice mousepad pluma ; do
+if hash ${i/#-/} &> /dev/null ; then
+if [ -n "$programList" ]; then
+programList="$programList $i"
+else
+programList="$i"
+fi
+fi
+done
+if [ "$programList" != "${programList// /}" ]; then
+textEditor="$(menulist "Text editor:" $programList)"
+else
+textEditor="${programList/#-/}"
+fi
+textEditor="$(command -v $textEditor)"
+# File browser
+# Configure file browser
+unset programList
+for i in caja nemo nautilus pcmanfm pcmanfm-qt thunar ; do
+    if hash ${i/#-/} &> /dev/null ; then
+        if [ -n "$programList" ]; then
+            programList="$programList $i"
+        else
+            programList="$i"
+        fi
+    fi
+done
+if [ "$programList" != "${programList// /}" ]; then
+    fileBrowser="$(menulist "File browser:" $programList)"
+else
+    fileBrowser="${programList/#-/}"
+fi
+fileBrowser="$(command -v $fileBrowser)"
+# Auto start with dex
 dex=1
 if command -v dex &> /dev/null ; then
     export dex=$(yesno "Would you like to autostart applications with dex?")
@@ -212,8 +250,8 @@ bindsym Mod1+Control+c exec clipster -s
 bindsym Mod1+Control+Delete exec --no-startup-id sgtk-bar
 
 # Use pactl to adjust volume in PulseAudio.
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym Mod1+XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym Mod1+XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
 
 # start a terminal
 bindsym Mod1+Return exec i3-sensible-terminal
@@ -288,8 +326,18 @@ bindsym Control+Shift+F10 move container to workspace number \$ws10
 
 bindsym $escapeKey mode "ratpoison"
 mode "ratpoison" {
+# Text editor bound to e
+bindsym e exec $textEditor, mode "default"
+# File browser bound to f
+bindsym f exec $fileBrowser, mode "default"
 # Web browser bound to w
 bindsym w exec $webBrowser, mode "default"
+$(if [[ command -v mumble &> /dev/null ; then
+    echo 'bindsym m exec $(command -v mumble), mode "default"'
+fi)
+$(if [[ command -v pidgin &> /dev/null ; then
+    echo 'bindsym p exec $(command -v pidgin), mode "default"'
+fi)
 # reload the configuration file
 bindsym Control+semicolon exec bash -c 'i3-msg -t run_command reload && spd-say -P important -Cw "I38 Configuration reloaded."', mode "default"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
