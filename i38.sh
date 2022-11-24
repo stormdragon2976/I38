@@ -382,4 +382,12 @@ else
 echo 'exec /usr/lib/notification-daemon-1.0/notification-daemon'
     echo 'exec orca'
 fi)
+
+# If you want to add personal customizations to i3, add them in ${i3Path}/customizations
+# It is not overwritten with the config file is recreated.
+$(if [[ -r "${i3Path}/customizations" ]]; then
+    echo "include \"${i3Path}/customizations\""
+else
+    echo "# Rerun the ${0##*/} script after creating the customizations file so it is detected."
+fi)
 EOF
