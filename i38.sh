@@ -250,6 +250,7 @@ bindsym Mod1+Control+Delete exec --no-startup-id sgtk-bar
 # Use pactl to adjust volume in PulseAudio.
 bindsym Mod1+XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
 bindsym Mod1+XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym Mod1+XF86AudioMute exec --no-startup-id ${i3Path}/scripts/mute-unmute.sh
 
 # Music player controls
 # Requires playerctl.
