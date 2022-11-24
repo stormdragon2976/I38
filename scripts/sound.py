@@ -25,10 +25,14 @@ def on_workspace_focus(self,i3):
 def on_workspace_move(self,i3):
     system('play -qnV0 synth pi fade 0 .25 .15 pad 0 1 reverb overdrive riaa norm -8 speed 1 reverse')
 
+def on_restart(self,i3):
+    system('play -qn synth .25 saw 500:1200 fade .1 .25 .1 norm -8')
+
 i3 = i3ipc.Connection()
 
 i3.on('window::new', on_new_window)
 i3.on(Event.MODE, on_mode)
 i3.on('workspace::focus', on_workspace_focus)
 i3.on('window::move', on_workspace_move)
+i3.on('shutdown::restart', on_restart)
 i3.main()
