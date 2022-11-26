@@ -360,6 +360,8 @@ fi)
 $(if command -v transfersh &> /dev/null ; then
     echo 'bindsym t exec bash -c '"'"'fileName="$(yad --title "I38 Upload File" --file)" && url="$(transfersh "${fileName}" | tee >(yad --title "I38 - Uploading ${fileName##*/} ..." --progress --pulsate --auto-close))" && echo "${url#*saved at: }" | tee >(yad --title "I38 - Upload URL" --show-cursor --show-uri --button yad-close --sticky --text-info) >(xclip -selection clipboard)'"', mode \"default\""
 fi)
+bindsym Mod1+Shift+0 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +${volumeJump}%
+bindsym Mod1+Shift+9 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -${voluemJump}%
 # Music player controls
 # Requires playerctl.
 bindsym Mod1+Shift+equal exec --no-startup-id ${i3Path}/scripts/music_controler.sh incvol $volumeJump, mode "default"
