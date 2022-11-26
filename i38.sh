@@ -140,8 +140,12 @@ while getopts "${args}" i ; do
 done
 
 # Configuration questions
-escapeKey="$(menulist "Ratpoison mode key:" Control+t Control+z -Control+Escape Alt+Escape Control+Space Super_L Super_R)"
+escapeKey="$(menulist "Ratpoison mode key:" Control+t Control+z -Control+Escape Alt+Escape Control+Space Super)"
 escapeKey="${escapeKey//Alt/Mod1}"
+escapeKey="${escapeKey//Super/Mod4}"
+mod="$(menulist "I3 mod key, for top level bindings:" Alt Control Super)"
+mod="${mod//Alt/Mod1}"
+mod="${mod//Super/Mod4}"
 # Web browser
 unset programList
 for i in brave chromium epiphany firefox google-chrome-stable midori seamonkey ; do
@@ -233,24 +237,25 @@ cat << EOF > ${i3Path}/config
 # layout, use the i3-config-wizard
 #
 
+set \$mod $mod
 workspace_layout tabbed
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:monospace 8
 
 # Run dialog
-bindsym Mod1+F2 exec grun
+bindsym \$mod+F2 exec grun
 
 # Clipboard manager
-bindsym Mod1+Control+c exec clipster -s
+bindsym \$mod+Control+c exec clipster -s
 
 # gtk bar
-bindsym Mod1+Control+Delete exec --no-startup-id sgtk-bar
+bindsym \$mod+Control+Delete exec --no-startup-id sgtk-bar
 
 # Use pactl to adjust volume in PulseAudio.
-bindsym Mod1+XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
-bindsym Mod1+XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
-bindsym Mod1+XF86AudioMute exec --no-startup-id ${i3Path}/scripts/mute-unmute.sh
+bindsym \$mod+XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym \$mod+XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym \$mod+XF86AudioMute exec --no-startup-id ${i3Path}/scripts/mute-unmute.sh
 
 # Music player controls
 # Requires playerctl.
@@ -263,37 +268,37 @@ bindsym XF86AudioStop exec --no-startup-id ${i3Path}/scripts/music_controler.sh 
 bindsym XF86AudioNext exec --no-startup-id ${i3Path}/scripts/music_controler.sh next
 
 # start a terminal
-bindsym Mod1+Return exec i3-sensible-terminal
+bindsym \$mod+Return exec i3-sensible-terminal
 
 # kill focused window
-bindsym Mod1+F4 kill
+bindsym \$mod+F4 kill
 
 # Applications menu
-bindsym Mod1+F1 exec --no-startup-id sgtk-menu -f
+bindsym \$mod+F1 exec --no-startup-id sgtk-menu -f
 
 # Desktop icons
-bindsym Mod1+Control+d exec --no-startup-id yad --icons --compact --no-buttons --title="Desktop" --close-on-unfocus --read-dir=${HOME}/Desktop
+bindsym \$mod+Control+d exec --no-startup-id yad --icons --compact --no-buttons --title="Desktop" --close-on-unfocus --read-dir=${HOME}/Desktop
 
 # change focus
-# alt+tab and shift tab
-bindsym Mod1+Shift+Tab focus left
-bindsym Mod1+Tab focus right
+# $mod+tab and shift tab
+bindsym \$mod+Shift+Tab focus left
+bindsym \$mod+Tab focus right
 
 # enter fullscreen mode for the focused container
-bindsym Mod1+BackSpace fullscreen toggle
+bindsym \$mod+BackSpace fullscreen toggle
 
 # focus the parent container
-bindsym Mod1+a focus parent
+bindsym \$mod+a focus parent
 
 # focus the child container
-#bindsym Mod1+d focus child
+#bindsym \$mod+d focus child
 
 # move the currently focused window to the scratchpad
-bindsym Mod1+Shift+minus move scratchpad
+bindsym \$mod+Shift+minus move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
-bindsym Mod1+minus scratchpad show
+bindsym \$mod+minus scratchpad show
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
