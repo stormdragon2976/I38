@@ -20,6 +20,8 @@ show_info() {
 
 
     oldInfo="$(playerctl -p '%any,chromium,firefox' metadata -f '"{{title}}" by "{{artist}}" from "{{album}}"')"
+volume="0${2}"
+volume=${volume: -2}
 case "${1}" in
     "prev") run_command "previous";show_info;;
     "play") run_command "play";show_info;;
@@ -28,8 +30,8 @@ case "${1}" in
     "next") run_command "next";show_info;;
     "shuf") run_command "shuffle toggle";;
     "info") unset oldInfo;show_info;;
-    "decvol") run_command "volume 0.05-";;
-    "incvol") run_command "volume 0.05+";;
+    "decvol") run_command "volume 0.${volume}-";;
+    "incvol") run_command "volume 0.${volume}+";;
 esac
 
 exit 0

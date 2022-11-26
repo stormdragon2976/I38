@@ -146,6 +146,8 @@ escapeKey="${escapeKey//Super/Mod4}"
 mod="$(menulist "I3 mod key, for top level bindings:" Alt Control Super)"
 mod="${mod//Alt/Mod1}"
 mod="${mod//Super/Mod4}"
+# Volume jump
+volumeJump=$(rangebox "How much should pressing the volume keys change the volume?" 1 15 5)
 # Web browser
 unset programList
 for i in brave chromium epiphany firefox google-chrome-stable midori seamonkey ; do
@@ -253,14 +255,14 @@ bindsym \$mod+Control+c exec clipster -s
 bindsym \$mod+Control+Delete exec --no-startup-id sgtk-bar
 
 # Use pactl to adjust volume in PulseAudio.
-bindsym \$mod+XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
-bindsym \$mod+XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym \$mod+XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +${volumeJump}%
+bindsym \$mod+XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -${voluemJump}%
 bindsym \$mod+XF86AudioMute exec --no-startup-id ${i3Path}/scripts/mute-unmute.sh
 
 # Music player controls
 # Requires playerctl.
-bindsym XF86AudioRaiseVolume exec --no-startup-id ${i3Path}/scripts/music_controler.sh incvol
-bindsym XF86AudioLowerVolume exec --no-startup-id ${i3Path}/scripts/music_controler.sh decvol
+bindsym XF86AudioRaiseVolume exec --no-startup-id ${i3Path}/scripts/music_controler.sh incvol $volumeJump
+bindsym XF86AudioLowerVolume exec --no-startup-id ${i3Path}/scripts/music_controler.sh decvol $volumeJump
 bindsym XF86AudioPrev exec --no-startup-id ${i3Path}/scripts/music_controler.sh prev
 bindsym XF86AudioMute exec --no-startup-id ${i3Path}/scripts/music_controler.sh pause
 bindsym XF86AudioPlay exec --no-startup-id ${i3Path}/scripts/music_controler.sh play
@@ -358,6 +360,15 @@ fi)
 $(if command -v transfersh &> /dev/null ; then
     echo 'bindsym t exec bash -c '"'"'fileName="$(yad --title "I38 Upload File" --file)" && url="$(transfersh "${fileName}" | tee >(yad --title "I38 - Uploading ${fileName##*/} ..." --progress --pulsate --auto-close))" && echo "${url#*saved at: }" | tee >(yad --title "I38 - Upload URL" --show-cursor --show-uri --button yad-close --sticky --text-info) >(xclip -selection clipboard)'"', mode \"default\""
 fi)
+# Music player controls
+# Requires playerctl.
+bindsym Mod1+Shift+equal exec --no-startup-id ${i3Path}/scripts/music_controler.sh incvol $volumeJump, mode "default"
+bindsym Mod1+Shift+minus exec --no-startup-id ${i3Path}/scripts/music_controler.sh decvol $volumeJump, mode "default"
+bindsym Mod1+Shift+z exec --no-startup-id ${i3Path}/scripts/music_controler.sh prev, mode "default"
+bindsym Mod1+Shift+c exec --no-startup-id ${i3Path}/scripts/music_controler.sh pause, mode "default"
+bindsym Mod1+Shift+x exec --no-startup-id ${i3Path}/scripts/music_controler.sh play, mode "default"
+bindsym Mod1+Shitf+v exec --no-startup-id ${i3Path}/scripts/music_controler.sh stop, mode "default"
+bindsym Mod1+Shift+b exec --no-startup-id ${i3Path}/scripts/music_controler.sh next, mode "default"
 # Get a list of windows in the current workspace
 bindsym apostrophe exec --no-startup-id ${i3Path}/scripts/window_list.sh, mode "default"
 # Restart orca
@@ -379,6 +390,9 @@ $(if [[ $sounds -eq 0 ]]; then
         echo 'exec --no-startup-id xbrlapi --quiet'
     fi
 fi
+$(if [[ -x "/usr/lib/notification-daemon-1.0/notification-daemon" ]]; then
+    echo 'exec_always --no-startup-id /usr/lib/notification-daemon-1.0/notification-daemon -r'
+fi)
 if [[ $dex -eq 0 ]]; then
     echo '# Start XDG autostart .desktop files using dex. See also'
     echo '# https://wiki.archlinux.org/index.php/XDG_Autostart'
@@ -386,7 +400,6 @@ if [[ $dex -eq 0 ]]; then
 else
     echo '# Startup applications'
     echo 'exec clipster -d'
-echo 'exec_always --no-startup-id /usr/lib/notification-daemon-1.0/notification-daemon -r'
     echo 'exec orca'
 fi)
 
