@@ -386,7 +386,7 @@ if [[ $dex -eq 0 ]]; then
 else
     echo '# Startup applications'
     echo 'exec clipster -d'
-echo 'exec /usr/lib/notification-daemon-1.0/notification-daemon'
+echo 'exec_always --no-startup-id /usr/lib/notification-daemon-1.0/notification-daemon -r'
     echo 'exec orca'
 fi)
 
