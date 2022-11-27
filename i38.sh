@@ -371,6 +371,7 @@ bindsym Mod1+Shift+c exec --no-startup-id ${i3Path}/scripts/music_controler.sh p
 bindsym Mod1+Shift+x exec --no-startup-id ${i3Path}/scripts/music_controler.sh play, mode "default"
 bindsym Mod1+Shitf+v exec --no-startup-id ${i3Path}/scripts/music_controler.sh stop, mode "default"
 bindsym Mod1+Shift+b exec --no-startup-id ${i3Path}/scripts/music_controler.sh next, mode "default"
+bindsym Mod1+Shift+u exec --no-startup-id ${i3Path}/scripts/music_controler.sh info, mode "default"
 # Get a list of windows in the current workspace
 bindsym apostrophe exec --no-startup-id ${i3Path}/scripts/window_list.sh, mode "default"
 # Restart orca
