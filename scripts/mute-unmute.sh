@@ -1,8 +1,8 @@
 #!/bin/bash
 if [ $(pamixer --get-mute) = false ]; then
-spd-say -Cw 'Muting!'
+spd-say -P important -Cw 'Muting!'
 pamixer -t
 else
 pamixer -t
-spd-say -Cw 'Unmuted!'
+spd-say -P important -Cw 'Unmuted!'
 fi
