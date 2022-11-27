@@ -28,11 +28,19 @@ def on_workspace_move(self,i3):
 def on_restart(self,i3):
     system('play -qn synth .25 saw 500:1200 fade .1 .25 .1 norm -8 &')
 
+def on_exit(self,i3):
+    system('play -qn synth .3 sin 700:200 fade 0 .3 0 &')
+
+def on_fullscreen(self,i3):
+    system('play -qn synth br flanger fade h .3 .3 0 &')
+
 i3 = i3ipc.Connection()
 
 i3.on('window::new', on_new_window)
 i3.on(Event.MODE, on_mode)
 i3.on('workspace::focus', on_workspace_focus)
 i3.on('window::move', on_workspace_move)
+i3.on('window::fullscreen_mode', on_fullscreen)
 i3.on('shutdown::restart', on_restart)
+i3.on('shutdown::exit', on_exit)
 i3.main()
