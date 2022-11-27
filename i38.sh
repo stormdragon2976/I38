@@ -69,10 +69,7 @@ help() {
 write_xinitrc()
 {
 if [[ -f "$HOME/.xinitrc" ]]; then
-continue="$(yesno "This will overwrite your existing $HOME/.xinitrc file. Do you want to continue?")"
-if [ "$continue" = "no" ]; then
-exit 0
-fi
+yesno "This will overwrite your existing $HOME/.xinitrc file. Do you want to continue?" || exit 0
 fi
 cat << 'EOF' > ~/.xinitrc
 #!/bin/sh
@@ -99,6 +96,9 @@ export DBUS_SESSION_BUS_ADDRESS
 
 exec i3
 EOF
+}
+
+write_xprofile() {
 if [[ -f "$HOME/.xprofile" ]]; then
 continue="$(yesno "Would you like to add accessibility variables to your $HOME/.xprofile? Without these, accessibility will be limited or may not work at all. Do you want to continue?")"
 if [ "$continue" = "no" ]; then
@@ -114,6 +114,7 @@ export QT_ACCESSIBILITY=1
 export QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1
 export SAL_USE_VCLPLUGIN=gtk3
 EOF
+exit 0
 }
 
 update_scripts() {
@@ -127,6 +128,7 @@ declare -A command=(
     [h]="This help screen."
     [u]="Copy over the latest version of scripts."
     [x]="Generate ~/.xinitrc and ~/.xprofile."
+    [X]="Generate ~/.xprofile only."
 )
 
 # Convert the keys of the associative array to a format usable by getopts
@@ -136,7 +138,8 @@ while getopts "${args}" i ; do
     case "$i" in
         h) help;;
         u) update_scripts;;
-        x) write_xinitrc
+        x) write_xinitrc ;&
+        X) write_xprofile ;;
     esac
 done
 
