@@ -266,6 +266,7 @@ bindsym XF86AudioLowerVolume exec --no-startup-id ${i3Path}/scripts/music_contro
 bindsym XF86AudioPrev exec --no-startup-id ${i3Path}/scripts/music_controler.sh prev
 bindsym XF86AudioMute exec --no-startup-id ${i3Path}/scripts/music_controler.sh pause
 bindsym XF86AudioPlay exec --no-startup-id ${i3Path}/scripts/music_controler.sh play
+bindsym \$mod+XF86AudioPlay exec --no-startup-id ${i3Path}/scripts/music_controler.sh info
 bindsym XF86AudioStop exec --no-startup-id ${i3Path}/scripts/music_controler.sh stop
 bindsym XF86AudioNext exec --no-startup-id ${i3Path}/scripts/music_controler.sh next
 
