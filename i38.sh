@@ -283,9 +283,9 @@ bindsym \$mod+F1 exec --no-startup-id sgtk-menu -f
 bindsym \$mod+Control+d exec --no-startup-id yad --icons --compact --no-buttons --title="Desktop" --close-on-unfocus --read-dir=${HOME}/Desktop
 
 # change focus
-# $mod+tab and shift tab
-bindsym \$mod+Shift+Tab focus left
-bindsym \$mod+Tab focus right
+# alt+tab and shift tab
+bindsym Mod1+Shift+Tab focus left
+bindsym Mod1+Tab focus right
 
 # enter fullscreen mode for the focused container
 bindsym \$mod+BackSpace fullscreen toggle
