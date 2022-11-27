@@ -255,8 +255,8 @@ bindsym \$mod+Control+c exec clipster -s
 bindsym \$mod+Control+Delete exec --no-startup-id sgtk-bar
 
 # Use pactl to adjust volume in PulseAudio.
-bindsym \$mod+XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +${volumeJump}%
-bindsym \$mod+XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -${volumeJump}%
+bindsym \$mod+XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +${volumeJump}% & play -qnG synth 0.05 sin 440
+bindsym \$mod+XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -${volumeJump}% & play -qnG synth 0.05 sin 440
 bindsym \$mod+XF86AudioMute exec --no-startup-id ${i3Path}/scripts/mute-unmute.sh
 
 # Music player controls
