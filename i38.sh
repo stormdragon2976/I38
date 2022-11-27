@@ -392,9 +392,9 @@ $(if [[ $sounds -eq 0 ]]; then
         echo 'exec --no-startup-id xbrlapi --quiet'
     fi
 fi
-$(if [[ -x "/usr/lib/notification-daemon-1.0/notification-daemon" ]]; then
+if [[ -x "/usr/lib/notification-daemon-1.0/notification-daemon" ]]; then
     echo 'exec_always --no-startup-id /usr/lib/notification-daemon-1.0/notification-daemon -r'
-fi)
+fi
 if [[ $dex -eq 0 ]]; then
     echo '# Start XDG autostart .desktop files using dex. See also'
     echo '# https://wiki.archlinux.org/index.php/XDG_Autostart'
