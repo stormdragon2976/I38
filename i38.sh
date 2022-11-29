@@ -279,7 +279,7 @@ bindsym XF86AudioNext exec --no-startup-id ${i3Path}/scripts/music_controler.sh 
 bindsym \$mod+Return exec i3-sensible-terminal
 
 # kill focused window
-bindsym Mod1+F4 kill
+bindsym \$mod+F4 kill
 
 # Applications menu
 bindsym \$mod+F1 exec --no-startup-id sgtk-menu -f
