@@ -96,6 +96,7 @@ export DBUS_SESSION_BUS_ADDRESS
 
 exec i3
 EOF
+chmod +x ~/.xinitrc
 }
 
 write_xprofile() {
