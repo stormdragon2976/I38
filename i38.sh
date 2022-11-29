@@ -145,7 +145,7 @@ while getopts "${args}" i ; do
 done
 
 # Configuration questions
-escapeKey="$(menulist "Ratpoison mode key:" Control+t Control+z -Control+Escape Alt+Escape Control+Space Super)"
+escapeKey="$(menulist "Ratpoison mode key:" Control+t Control+z Control+Escape Alt+Escape Control+Space Super)"
 escapeKey="${escapeKey//Alt/Mod1}"
 escapeKey="${escapeKey//Super/Mod4}"
 mod="$(menulist "I3 mod key, for top level bindings:" Alt Control Super)"
@@ -279,7 +279,7 @@ bindsym XF86AudioNext exec --no-startup-id ${i3Path}/scripts/music_controler.sh 
 bindsym \$mod+Return exec i3-sensible-terminal
 
 # kill focused window
-bindsym \$mod+F4 kill
+bindsym Mod1+F4 kill
 
 # Applications menu
 bindsym \$mod+F1 exec --no-startup-id sgtk-menu -f
