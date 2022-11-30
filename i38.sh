@@ -360,7 +360,7 @@ bindsym Control+Shift+F10 move container to workspace number \$ws10, exec spd-sa
 EOF
 
 # Create ratpoison mode if requested.
-if [[ -n ${escapeKey} ]]; then
+if [[ -n "${escapeKey}" ]]; then
     cat << EOF >> ${i3Path}/config
 bindsym $escapeKey mode "ratpoison"
 mode "ratpoison" {
@@ -414,7 +414,7 @@ EOF
 fi
 
 # For those who do not want ratpoison mode.
-if [[ -z ${escapeKey} ]]; then
+if [[ -z "${escapeKey}" ]]; then
     cat << EOF >> ${i3Path}/config
 # Text editor bound to $mod+e
 bindsym \$mod+e exec $textEditor, mode "default"
@@ -464,7 +464,7 @@ bindsym \$mod+Control+q exec bash -c 'yad --image "dialog-question" --title "I38
 EOF
 fi
 
-cat << EOF > ${i3Path}/config
+cat << EOF >> ${i3Path}/config
 # Auto start section
 $(if [[ $sounds -eq 0 ]]; then
     echo "exec_always --no-startup-id ${i3Path}/scripts/sound.py"
