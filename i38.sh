@@ -287,6 +287,9 @@ bindsym \$mod+F1 exec --no-startup-id sgtk-menu -f
 # Desktop icons
 bindsym \$mod+Control+d exec --no-startup-id yad --icons --compact --no-buttons --title="Desktop" --close-on-unfocus --read-dir=${HOME}/Desktop
 
+#Check battery status
+bindsym \$mod+Control+b exec --no-startup-id ${i3Path}/scripts/battery_status.sh
+
 # change focus
 # alt+tab and shift tab
 bindsym Mod1+Shift+Tab focus left
