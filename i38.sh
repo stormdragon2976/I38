@@ -403,9 +403,9 @@ bindsym Escape mode "default"
 # Auto start section
 $(if [[ $sounds -eq 0 ]]; then
     echo "exec_always --no-startup-id ${i3Path}/scripts/sound.py"
-    if [[ $brlapi -eq 0 ]]; then
-        echo 'exec --no-startup-id xbrlapi --quiet'
-    fi
+fi
+if [[ $brlapi -eq 0 ]]; then
+    echo 'exec --no-startup-id xbrlapi --quiet'
 fi
 if [[ -x "/usr/lib/notification-daemon-1.0/notification-daemon" ]]; then
     echo 'exec_always --no-startup-id /usr/lib/notification-daemon-1.0/notification-daemon -r'
