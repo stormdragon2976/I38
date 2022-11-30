@@ -154,7 +154,7 @@ escapeKey="${escapeKey//Super/Mod4}"
 mod="$(menulist "I3 mod key, for top level bindings:" Alt Control Super)"
 mod="${mod//Alt/Mod1}"
 mod="${mod//Super/Mod4}"
-if [ ""$escapeKey" == "$mod" ]; then
+if [ "$escapeKey" == "$mod" ]; then
 echo "Sorry, these cannot be the same key."
 fi
 done
