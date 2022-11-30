@@ -293,6 +293,9 @@ bindsym \$mod+F1 exec --no-startup-id sgtk-menu -f
 # Desktop icons
 bindsym \$mod+Control+d exec --no-startup-id yad --icons --compact --no-buttons --title="Desktop" --close-on-unfocus --read-dir=${HOME}/Desktop
 
+#Check battery status
+bindsym \$mod+Shift+b exec --no-startup-id ${i3Path}/scripts/battery_status.sh
+
 # change focus
 # alt+tab and shift tab
 bindsym Mod1+Shift+Tab focus left
@@ -302,7 +305,7 @@ bindsym Mod1+Tab focus right
 bindsym \$mod+BackSpace fullscreen toggle
 
 # focus the parent container
-bindsym \$mod+a focus parent
+#bindsym \$mod+a focus parent
 
 # focus the child container
 #bindsym \$mod+d focus child
