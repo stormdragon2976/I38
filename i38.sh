@@ -145,12 +145,19 @@ while getopts "${args}" i ; do
 done
 
 # Configuration questions
+#Prevent setting ratpoison mode key to the same as default mode key
+while [ "$escapeKey == "$mod" ]
+do
 escapeKey="$(menulist "Ratpoison mode key:" Control+t Control+z Control+Escape Alt+Escape Control+Space Super)"
 escapeKey="${escapeKey//Alt/Mod1}"
 escapeKey="${escapeKey//Super/Mod4}"
 mod="$(menulist "I3 mod key, for top level bindings:" Alt Control Super)"
 mod="${mod//Alt/Mod1}"
 mod="${mod//Super/Mod4}"
+if [ ""$escapeKey" == "$mod" ]; then
+echo "Sorry, these cannot be the same key."
+fi
+done
 # Volume jump
 volumeJump=$(rangebox "How much should pressing the volume keys change the volume?" 1 15 5)
 # Web browser
