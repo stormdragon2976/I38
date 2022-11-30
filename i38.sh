@@ -293,9 +293,6 @@ bindsym \$mod+F1 exec --no-startup-id sgtk-menu -f
 # Desktop icons
 bindsym \$mod+Control+d exec --no-startup-id yad --icons --compact --no-buttons --title="Desktop" --close-on-unfocus --read-dir=${HOME}/Desktop
 
-#Check battery status
-bindsym \$mod+Shift+b exec --no-startup-id ${i3Path}/scripts/battery_status.sh
-
 # change focus
 # alt+tab and shift tab
 bindsym Mod1+Shift+Tab focus left
@@ -387,6 +384,8 @@ bindsym Mod1+Shift+x exec --no-startup-id ${i3Path}/scripts/music_controler.sh p
 bindsym Mod1+Shitf+v exec --no-startup-id ${i3Path}/scripts/music_controler.sh stop, mode "default"
 bindsym Mod1+Shift+b exec --no-startup-id ${i3Path}/scripts/music_controler.sh next, mode "default"
 bindsym Mod1+Shift+u exec --no-startup-id ${i3Path}/scripts/music_controler.sh info, mode "default"
+#Check battery status
+bindsym Mod1+b exec --no-startup-id ${i3Path}/scripts/battery_status.sh, mode "default"
 # Get a list of windows in the current workspace
 bindsym apostrophe exec --no-startup-id ${i3Path}/scripts/window_list.sh, mode "default"
 # Restart orca
