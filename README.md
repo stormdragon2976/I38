@@ -32,8 +32,8 @@ I38 will try to detect your browser, file manager, and web browser and present y
 
 ## Usage:
 
-With no arguments, create the i3 configuration.
--h: This help screen.
--u: Copy over the latest version of scripts.
--x: Generate ~/.xinitrc and ~/.xprofile.
--X: Generate ~/.xprofile only.
+- With no arguments, create the i3 configuration.
+- -h: This help screen.
+- -u: Copy over the latest version of scripts.
+- -x: Generate ~/.xinitrc and ~/.xprofile.
+- -X: Generate ~/.xprofile only.
