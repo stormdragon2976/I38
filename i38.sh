@@ -145,7 +145,7 @@ while getopts "${args}" i ; do
 done
 
 # Configuration questions
-escapeKey="$(menulist "Ratpoison mode key:" Control+t Control+z Control+Escape Alt+Escape Control+Space Super)"
+escapeKey="$(menulist "Ratpoison mode key:" Control+t Control+z Control+Escape Alt+Escape Control+space Super)"
 escapeKey="${escapeKey//Alt/Mod1}"
 escapeKey="${escapeKey//Super/Mod4}"
 mod="$(menulist "I3 mod key, for top level bindings:" Alt Control Super)"
