@@ -1,10 +1,13 @@
-#!/bin/env bash
-#Get battery status
-cd /sys/class/power_supply
-for f in `ls`; do
-if [ -e $f"/capacity" ]; then
-export stat=`cat $f"/status"`
-export cap=`cat $f"/capacity"`
-echo battery $f": "$stat", "$cap"%"
-fi
-done|spd-say -e
+#!/usr/bin/env bash
+
+find /sys/class/power_supply -type l -exec bash -c '
+    for i ; do
+        if [[ -e "$i/capacity" ]]; then
+            bat="${i##*/}"
+            bat="${bat//BAT/Battery }"
+            bat="${bat}: $(cat "${i}/capacity") percent"
+            spd-say -P important -Cw "$bat"
+        fi
+    done
+' _ {} \;
+
