@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 
-select_window() {
-    local window="$(yad --list --column "Select Window" "$@")"
-    echo "${window%|}"
-}
+mapfile -t windowList < <(python3 -c '
+import i3ipc
 
-i3-msg '[title="'$(i3-msg -t get_tree | jq -r "recurse(.nodes[]) | select(.window) | .name" | select_window)'"] focus'
+i3 = i3ipc.Connection()
 
-exit 0
+for con in i3.get_tree():
+    if con.window and con.parent.type != "dockarea":
+        print(con.window)
+        print(con.name)')
+id="$(yad --title "I38" --list --separator "" --column "id" --column "Select Window" --hide-column 1 --print-column 1 "${windowList[@]}")"
+if [[ -z "${id}" ]]; then
+    exit 0
+fi
+i3-msg \[id="${id}"\] focus

@@ -146,7 +146,7 @@ done
 
 # Configuration questions
 #Prevent setting ratpoison mode key to the same as default mode key
-while [ "$escapeKey" == "$mod" ]
+while [ "$escapeKey" == "$mod" ]  
 do
 escapeKey="$(menulist "Ratpoison mode key:" Control+t Control+z Control+Escape Alt+Escape Control+Space Super)"
 escapeKey="${escapeKey//Alt/Mod1}"
@@ -332,16 +332,16 @@ set \$ws9 "9"
 set \$ws10 "10"
 
 # switch to workspace
-bindsym Control+F1 workspace number \$ws1, exec spd-say -P important -Cw "workspace 1"
-bindsym Control+F2 workspace number \$ws2, exec spd-say -P important -Cw "workspace 2"
-bindsym Control+F3 workspace number \$ws3, exec spd-say -P important -Cw "workspace 3"
-bindsym Control+F4 workspace number \$ws4, exec spd-say -P important -Cw "workspace 4"
-bindsym Control+F5 workspace number \$ws5, exec spd-say -P important -Cw "workspace 5"
-bindsym Control+F6 workspace number \$ws6, exec spd-say -P important -Cw "workspace 6"
-bindsym Control+F7 workspace number \$ws7, exec spd-say -P important -Cw "workspace 7"
-bindsym Control+F8 workspace number \$ws8, exec spd-say -P important -Cw "workspace 8"
-bindsym Control+F9 workspace number \$ws9, exec spd-say -P important -Cw "workspace 9"
-bindsym Control+F10 workspace number \$ws10, exec spd-say -P important -Cw "workspace 10"
+bindsym Control+F1 workspace number \$ws1, exec --no-startup-id ${i3Path}/scripts/announce_workspace.sh
+bindsym Control+F2 workspace number \$ws2, exec --no-startup-id ${i3Path}/scripts/announce_workspace.sh
+bindsym Control+F3 workspace number \$ws3, exec --no-startup-id ${i3Path}/scripts/announce_workspace.sh
+bindsym Control+F4 workspace number \$ws4, exec --no-startup-id ${i3Path}/scripts/announce_workspace.sh
+bindsym Control+F5 workspace number \$ws5, exec --no-startup-id ${i3Path}/scripts/announce_workspace.sh
+bindsym Control+F6 workspace number \$ws6, exec --no-startup-id ${i3Path}/scripts/announce_workspace.sh
+bindsym Control+F7 workspace number \$ws7, exec --no-startup-id ${i3Path}/scripts/announce_workspace.sh
+bindsym Control+F8 workspace number \$ws8, exec --no-startup-id ${i3Path}/scripts/announce_workspace.sh
+bindsym Control+F9 workspace number \$ws9, exec --no-startup-id ${i3Path}/scripts/announce_workspace.sh
+bindsym Control+F10 workspace number \$ws10, exec --no-startup-id ${i3Path}/scripts/announce_workspace.sh
 
 # move focused container to workspace
 bindsym Control+Shift+F1 move container to workspace number \$ws1, exec spd-say -P important -Cw "moved to workspace 1"
