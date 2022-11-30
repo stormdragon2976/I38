@@ -7,4 +7,4 @@ export stat=`cat $f"/status"`
 export cap=`cat $f"/capacity"`
 echo battery $f": "$stat", "$cap"%"
 fi
-done|zenity --text-info --filename=/dev/stdin --title "Power Status"
+done|spd-say -e

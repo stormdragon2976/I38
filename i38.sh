@@ -9,7 +9,7 @@ i3Path="${XDG_CONFIG_HOME:-$HOME/.config}/i3"
 export DIALOGOPTS='--no-lines --visit-items'
 
 # Check to make sure minimum requirements are installed.
-for i in dialog grun sgtk-menu yad zenity ; do
+for i in dialog grun sgtk-menu yad ; do
     if ! command -v "$i" &> /dev/null ; then
         missing+=("$i")
     fi
