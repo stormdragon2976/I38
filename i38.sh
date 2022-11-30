@@ -51,7 +51,8 @@ rangebox() {
 yesno() {
     # Returns: Yes 0 or No 1
     # Args: Question to user.
-    dialog --clear --title "I38" --yesno "$*" -1 -1 --stdout && return 0
+    dialog --clear --title "I38" --yesno "$*" -1 -1 --stdout
+    echo $?
 } 
 
 help() {
@@ -145,7 +146,11 @@ while getopts "${args}" i ; do
 done
 
 # Configuration questions
-#Prevent setting ratpoison mode key to the same as default mode key
+export i3Mode=$(yesno "Would you like to use ratpoison mode? This behaves more like strychnine, with an escape key followed by keybindings.")
+if [[ $i3Mode -eq 1 ]]; then
+    mod="Mod4"
+fi
+# Prevent setting ratpoison mode key to the same as default mode key
 while [[ "$escapeKey" == "$mod" ]]; do
     escapeKey="$(menulist "Ratpoison mode key:" Control+t Control+z Control+Escape Alt+Escape Control+Space Super)"
     escapeKey="${escapeKey//Alt/Mod1}"
@@ -352,6 +357,11 @@ bindsym Control+Shift+F9 move container to workspace number \$ws9, exec spd-say 
 bindsym Control+Shift+F10 move container to workspace number \$ws10, exec spd-say -P important -Cw "moved to workspace 10"
 
 
+EOF
+
+# Create ratpoison mode if requested.
+if [[ -n ${escapeKey} ]]; then
+    cat << EOF >> ${i3Path}/config
 bindsym $escapeKey mode "ratpoison"
 mode "ratpoison" {
 # Text editor bound to e
@@ -400,6 +410,61 @@ bindsym Escape mode "default"
 }
 
 
+EOF
+fi
+
+# For those who do not want ratpoison mode.
+if [[ -z ${escapeKey} ]]; then
+    cat << EOF >> ${i3Path}/config
+# Text editor bound to $mod+e
+bindsym \$mod+e exec $textEditor, mode "default"
+# File browser bound to $mod+f
+bindsym \$mod+f exec $fileBrowser, mode "default"
+# Web browser bound to $mod+w
+bindsym \$mod+w exec $webBrowser, mode "default"
+$(if command -v mumble &> /dev/null ; then
+    echo "bindsym \$mod+m exec $(command -v mumble), mode \"default\""
+fi)
+$(if command -v ocrdesktop &> /dev/null ; then
+    echo "bindsym Print exec $(command -v ocrdesktop), mode \"default\""
+fi)
+$(if command -v pidgin &> /dev/null ; then
+    echo "bindsym \$mod+p exec $(command -v pidgin), mode \"default\""
+fi)
+$(if command -v transfersh &> /dev/null ; then
+    echo 'bindsym \$mod+t exec bash -c '"'"'fileName="$(yad --title "I38 Upload File" --file)" && url="$(transfersh "${fileName}" | tee >(yad --title "I38 - Uploading ${fileName##*/} ..." --progress --pulsate --auto-close))" && echo "${url#*saved at: }" | tee >(yad --title "I38 - Upload URL" --show-cursor --show-uri --button yad-close --sticky --text-info) >(xclip -selection clipboard)'"', mode \"default\""
+fi)
+bindsym \$mod+Shift+0 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +${volumeJump}%
+bindsym \$mod+Shift+9 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -${voluemJump}%
+# Music player controls
+# Requires playerctl.
+bindsym \$mod+Shift+equal exec --no-startup-id ${i3Path}/scripts/music_controler.sh incvol $volumeJump, mode "default"
+bindsym \$mod+Shift+minus exec --no-startup-id ${i3Path}/scripts/music_controler.sh decvol $volumeJump, mode "default"
+bindsym \$mod+Shift+z exec --no-startup-id ${i3Path}/scripts/music_controler.sh prev, mode "default"
+bindsym \$mod+Shift+c exec --no-startup-id ${i3Path}/scripts/music_controler.sh pause, mode "default"
+bindsym \$mod+Shift+x exec --no-startup-id ${i3Path}/scripts/music_controler.sh play, mode "default"
+bindsym \$mod+Shitf+v exec --no-startup-id ${i3Path}/scripts/music_controler.sh stop, mode "default"
+bindsym \$mod+Shift+b exec --no-startup-id ${i3Path}/scripts/music_controler.sh next, mode "default"
+bindsym \$mod+Shift+u exec --no-startup-id ${i3Path}/scripts/music_controler.sh info, mode "default"
+#Check battery status
+bindsym \$mod+b exec --no-startup-id ${i3Path}/scripts/battery_status.sh, mode "default"
+# Get a list of windows in the current workspace
+bindsym \$mod+apostrophe exec --no-startup-id ${i3Path}/scripts/window_list.sh, mode "default"
+# Restart orca
+bindsym \$mod+Shift+o exec $(command -v orca) --replace, mode "default"
+# reload the configuration file
+bindsym \$mod+Control+semicolon exec bash -c 'i3-msg -t run_command reload && spd-say -P important -Cw "I38 Configuration reloaded."', mode "default"
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym \$mod+Control+Shift+semicolon exec bash -c 'i3-msg -t run_command restart && spd-say -P important -Cw "I3 restarted."', mode "default"
+# exit i3 (logs you out of your X session)
+bindsym \$mod+Control+q exec bash -c 'yad --image "dialog-question" --title "I38" --button=yes:0 --button=no:1 --text "You pressed the exit shortcut. Do you really want to exit i3? This will end your X session." && i3-msg -t run_command exit'
+}
+
+
+EOF
+fi
+
+cat << EOF > ${i3Path}/config
 # Auto start section
 $(if [[ $sounds -eq 0 ]]; then
     echo "exec_always --no-startup-id ${i3Path}/scripts/sound.py"
