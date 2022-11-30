@@ -146,7 +146,7 @@ done
 
 # Configuration questions
 #Prevent setting ratpoison mode key to the same as default mode key
-while [ "$escapeKey == "$mod" ]
+while [ "$escapeKey" == "$mod" ]
 do
 escapeKey="$(menulist "Ratpoison mode key:" Control+t Control+z Control+Escape Alt+Escape Control+Space Super)"
 escapeKey="${escapeKey//Alt/Mod1}"
