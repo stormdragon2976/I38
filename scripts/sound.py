@@ -20,7 +20,8 @@ def on_mode(self,event):
             system('play -qV0 "|sox -np synth .07 sq 400" "|sox -np synth .5 sq 800" fade h 0 .5 .5 norm -20 &')
 
 def on_workspace_focus(self,i3):
-    system('play -qnV0 synth pi fade 0 .25 .15 pad 0 1 reverb overdrive riaa norm -8 speed 1 &')
+    #system('play -qnV0 synth pi fade 0 .25 .15 pad 0 1 reverb overdrive riaa norm -8 speed 1 &')
+    pass
 
 def on_workspace_move(self,i3):
     system('play -qnV0 synth pi fade 0 .25 .15 pad 0 1 reverb overdrive riaa norm -8 speed 1 reverse &')
