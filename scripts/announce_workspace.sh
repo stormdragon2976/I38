@@ -21,5 +21,5 @@ else
         ((right+=${workSpace}))
     fi
 fi
-play -nqV0 synth pi fade 0 .25 .15 pad 0 1 reverb overdrive riaa norm -5 speed 1 remix v0.${left} v0.${right} &
+play -nqV0 synth pi fade 0 .25 .15 pad 0 1 reverb overdrive riaa norm -8 speed 1 remix v0.${left} v0.${right} &
 spd-say -P important -Cw "${msg}"
