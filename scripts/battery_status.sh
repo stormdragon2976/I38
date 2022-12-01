@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
-find /sys/class/power_supply -type l -exec bash -c '
+#check for acpi
+if command -v acpi &> /dev/null; then
+    spd-say -P important -Cw "$bat"
+else
+    find /sys/class/power_supply -type l -exec bash -c '
     for i ; do
         if [[ -e "$i/capacity" ]]; then
             bat="${i##*/}"
@@ -10,4 +14,4 @@ find /sys/class/power_supply -type l -exec bash -c '
         fi
     done
 ' _ {} \;
-
+fi  
