@@ -14,6 +14,9 @@ for i in dialog grun jq sgtk-menu yad ; do
         missing+=("$i")
     fi
 done
+if ! python3 -c 'import i3ipc' &> /dev/null ; then
+    missing+=("python-i3ipc")
+fi
 if [[ -n "${missing}" ]]; then
     echo "Please install the following packages and run this script again:"
     echo "${missing[*]}"
