@@ -24,7 +24,7 @@ def on_workspace_focus(self,i3):
     pass
 
 def on_workspace_move(self,i3):
-    system('play -qnV0 synth pi fade 0 .25 .15 pad 0 1 reverb riaa norm -8 speed 1 reverse &')
+    system('play -qnV0 synth pi fade 0 .25 .15 pad 0 1 reverb overdrive riaa norm -8 speed 1 reverse &')
 
 def on_restart(self,i3):
     system('play -qn synth .25 saw 500:1200 fade .1 .25 .1 norm -8 &')
