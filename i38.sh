@@ -373,6 +373,7 @@ bindsym e exec $textEditor, mode "default"
 bindsym f exec $fileBrowser, mode "default"
 # Web browser bound to w
 bindsym w exec $webBrowser, mode "default"
+bindsym g exec ${i3Path}/scripts/game_controler.sh -s, mode "default"
 $(if command -v mumble &> /dev/null ; then
     echo "bindsym m exec $(command -v mumble), mode \"default\""
 fi)
@@ -425,6 +426,7 @@ bindsym \$mod+e exec $textEditor
 bindsym \$mod+f exec $fileBrowser
 # Web browser bound to $mod+w
 bindsym \$mod+w exec $webBrowser
+bindsym \$mod+g exec ${i3Path}/scripts/game_controler.sh -s, mode "default"
 $(if command -v mumble &> /dev/null ; then
     echo "bindsym \$mod+m exec $(command -v mumble)"
 fi)
