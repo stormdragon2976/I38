@@ -14,6 +14,9 @@ for i in dialog grun jq sgtk-menu yad ; do
         missing+=("$i")
     fi
 done
+if ! python3 -c 'import i3ipc' &> /dev/null ; then
+    missing+=("python-i3ipc")
+fi
 if [[ -n "${missing}" ]]; then
     echo "Please install the following packages and run this script again:"
     echo "${missing[*]}"
@@ -370,6 +373,7 @@ bindsym e exec $textEditor, mode "default"
 bindsym f exec $fileBrowser, mode "default"
 # Web browser bound to w
 bindsym w exec $webBrowser, mode "default"
+bindsym g exec ${i3Path}/scripts/game_controler.sh -s, mode "default"
 $(if command -v mumble &> /dev/null ; then
     echo "bindsym m exec $(command -v mumble), mode \"default\""
 fi)
@@ -422,6 +426,7 @@ bindsym \$mod+e exec $textEditor
 bindsym \$mod+f exec $fileBrowser
 # Web browser bound to $mod+w
 bindsym \$mod+w exec $webBrowser
+bindsym \$mod+g exec ${i3Path}/scripts/game_controler.sh -s, mode "default"
 $(if command -v mumble &> /dev/null ; then
     echo "bindsym \$mod+m exec $(command -v mumble)"
 fi)
