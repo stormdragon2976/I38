@@ -257,9 +257,15 @@ cat << EOF > ${i3Path}/config
 # To get a config file with the same key positions, but for your current
 # layout, use the i3-config-wizard
 #
-
+#set mod key
 set \$mod $mod
+
+#set workspace layout to tapped so apps use most of the screen
 workspace_layout tabbed
+
+#set the mouse so it is trapped in focused window
+focus_follows_mouse no
+
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:monospace 8
