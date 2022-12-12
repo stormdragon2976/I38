@@ -401,7 +401,7 @@ bindsym Mod1+Shift+minus exec --no-startup-id ${i3Path}/scripts/music_controler.
 bindsym Mod1+Shift+z exec --no-startup-id ${i3Path}/scripts/music_controler.sh prev, mode "default"
 bindsym Mod1+Shift+c exec --no-startup-id ${i3Path}/scripts/music_controler.sh pause, mode "default"
 bindsym Mod1+Shift+x exec --no-startup-id ${i3Path}/scripts/music_controler.sh play, mode "default"
-bindsym Mod1+Shitf+v exec --no-startup-id ${i3Path}/scripts/music_controler.sh stop, mode "default"
+bindsym Mod1+Shift+v exec --no-startup-id ${i3Path}/scripts/music_controler.sh stop, mode "default"
 bindsym Mod1+Shift+b exec --no-startup-id ${i3Path}/scripts/music_controler.sh next, mode "default"
 bindsym Mod1+Shift+u exec --no-startup-id ${i3Path}/scripts/music_controler.sh info, mode "default"
 #Check battery status
@@ -454,7 +454,7 @@ bindsym \$mod+Shift+minus exec --no-startup-id ${i3Path}/scripts/music_controler
 bindsym \$mod+Shift+z exec --no-startup-id ${i3Path}/scripts/music_controler.sh prev
 bindsym \$mod+Shift+c exec --no-startup-id ${i3Path}/scripts/music_controler.sh pause
 bindsym \$mod+Shift+x exec --no-startup-id ${i3Path}/scripts/music_controler.sh play
-bindsym \$mod+Shitf+v exec --no-startup-id ${i3Path}/scripts/music_controler.sh stop
+bindsym \$mod+Shift+v exec --no-startup-id ${i3Path}/scripts/music_controler.sh stop
 bindsym \$mod+Shift+b exec --no-startup-id ${i3Path}/scripts/music_controler.sh next
 bindsym \$mod+Shift+u exec --no-startup-id ${i3Path}/scripts/music_controler.sh info
 #Check battery status
