@@ -253,10 +253,7 @@ cat << EOF > ${i3Path}/config
 #
 # This config file uses keycodes (bindsym) and was written for the QWERTY
 # layout.
-#
-# To get a config file with the same key positions, but for your current
-# layout, use the i3-config-wizard
-#
+
 #set mod key
 set \$mod $mod
 
@@ -280,8 +277,8 @@ bindsym \$mod+Control+c exec clipster -s
 bindsym \$mod+Control+Delete exec --no-startup-id sgtk-bar
 
 # Use pactl to adjust volume in PulseAudio.
-bindsym \$mod+XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +${volumeJump}% & play -qnG synth 0.05 sin 440
-bindsym \$mod+XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -${volumeJump}% & play -qnG synth 0.05 sin 440
+bindsym \$mod+XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +${volumeJump}% & play -qnG synth 0.03 sin 440
+bindsym \$mod+XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -${volumeJump}% & play -qnG synth 0.03 sin 440
 bindsym \$mod+XF86AudioMute exec --no-startup-id ${i3Path}/scripts/mute-unmute.sh
 
 # Music player controls
@@ -308,18 +305,13 @@ bindsym \$mod+F1 exec --no-startup-id sgtk-menu -f
 bindsym \$mod+Control+d exec --no-startup-id yad --icons --compact --no-buttons --title="Desktop" --close-on-unfocus --read-dir=${HOME}/Desktop
 
 # change focus
-# alt+tab and shift tab
+# alt+tab and alt+shift+tab
 bindsym Mod1+Shift+Tab focus left
 bindsym Mod1+Tab focus right
 
 # enter fullscreen mode for the focused container
 bindsym \$mod+BackSpace fullscreen toggle
 
-# focus the parent container
-#bindsym \$mod+a focus parent
-
-# focus the child container
-#bindsym \$mod+d focus child
 
 # move the currently focused window to the scratchpad
 bindsym \$mod+Shift+minus move scratchpad
@@ -379,7 +371,6 @@ bindsym e exec $textEditor, mode "default"
 bindsym f exec $fileBrowser, mode "default"
 # Web browser bound to w
 bindsym w exec $webBrowser, mode "default"
-bindsym g exec ${i3Path}/scripts/game_controler.sh -s, mode "default"
 $(if command -v mumble &> /dev/null ; then
     echo "bindsym m exec $(command -v mumble), mode \"default\""
 fi)
@@ -392,8 +383,10 @@ fi)
 $(if command -v transfersh &> /dev/null ; then
     echo 'bindsym t exec bash -c '"'"'fileName="$(yad --title "I38 Upload File" --file)" && url="$(transfersh "${fileName}" | tee >(yad --title "I38 - Uploading ${fileName##*/} ..." --progress --pulsate --auto-close))" && echo "${url#*saved at: }" | tee >(yad --title "I38 - Upload URL" --show-cursor --show-uri --button yad-close --sticky --text-info) >(xclip -selection clipboard)'"', mode \"default\""
 fi)
-bindsym Mod1+Shift+0 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +${volumeJump}%
-bindsym Mod1+Shift+9 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -${voluemJump}%
+
+#Keyboard based volume Controls with pulseaudio
+bindsym Mod1+Shift+0 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +${volumeJump}% & play -qnG synth 0.03 sin 440
+bindsym Mod1+Shift+9 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -${volumeJump}% & play -qnG synth 0.03 sin 440
 # Music player controls
 # Requires playerctl.
 bindsym Mod1+Shift+equal exec --no-startup-id ${i3Path}/scripts/music_controler.sh incvol $volumeJump, mode "default"
@@ -406,6 +399,8 @@ bindsym Mod1+Shift+b exec --no-startup-id ${i3Path}/scripts/music_controler.sh n
 bindsym Mod1+Shift+u exec --no-startup-id ${i3Path}/scripts/music_controler.sh info, mode "default"
 #Check battery status
 bindsym Mod1+b exec --no-startup-id ${i3Path}/scripts/battery_status.sh, mode "default"
+#Check controller battery status
+bindsym g exec ${i3Path}/scripts/game_controler.sh -s, mode "default"
 # Get a list of windows in the current workspace
 bindsym apostrophe exec --no-startup-id ${i3Path}/scripts/window_list.sh, mode "default"
 # Restart orca
@@ -432,7 +427,7 @@ bindsym \$mod+e exec $textEditor
 bindsym \$mod+f exec $fileBrowser
 # Web browser bound to $mod+w
 bindsym \$mod+w exec $webBrowser
-bindsym \$mod+g exec ${i3Path}/scripts/game_controler.sh -s, mode "default"
+
 $(if command -v mumble &> /dev/null ; then
     echo "bindsym \$mod+m exec $(command -v mumble)"
 fi)
@@ -445,8 +440,9 @@ fi)
 $(if command -v transfersh &> /dev/null ; then
     echo 'bindsym \$mod+t exec bash -c '"'"'fileName="$(yad --title "I38 Upload File" --file)" && url="$(transfersh "${fileName}" | tee >(yad --title "I38 - Uploading ${fileName##*/} ..." --progress --pulsate --auto-close))" && echo "${url#*saved at: }" | tee >(yad --title "I38 - Upload URL" --show-cursor --show-uri --button yad-close --sticky --text-info) >(xclip -selection clipboard)'"', mode \"default\""
 fi)
-bindsym \$mod+Shift+0 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +${volumeJump}%
-bindsym \$mod+Shift+9 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -${voluemJump}%
+#Keyboard based volume controls using pulseaudio
+bindsym \$mod+Shift+0 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +${volumeJump}% & play -qnG synth 0.03 sin 440
+bindsym \$mod+Shift+9 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -${volumeJump}% & play -qnG synth 0.03 sin 440
 # Music player controls
 # Requires playerctl.
 bindsym \$mod+Shift+equal exec --no-startup-id ${i3Path}/scripts/music_controler.sh incvol $volumeJump
@@ -459,6 +455,8 @@ bindsym \$mod+Shift+b exec --no-startup-id ${i3Path}/scripts/music_controler.sh 
 bindsym \$mod+Shift+u exec --no-startup-id ${i3Path}/scripts/music_controler.sh info
 #Check battery status
 bindsym \$mod+b exec --no-startup-id ${i3Path}/scripts/battery_status.sh
+#Check controller battery status
+bindsym \$mod+g exec ${i3Path}/scripts/game_controler.sh -s, mode "default"
 # Get a list of windows in the current workspace
 bindsym \$mod+apostrophe exec --no-startup-id ${i3Path}/scripts/window_list.sh
 # Restart orca
