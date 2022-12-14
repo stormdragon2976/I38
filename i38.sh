@@ -231,7 +231,8 @@ brlapi=1
 brlapi=$(yesno "Do you want to use a braille display with Orca?")
 sounds=1
 sounds=$(yesno "Do you want window event sounds?")
-
+keep=1
+keep=$(yesno "Do you want to use keep.sh to upload files?")
 if [[ -d "${i3Path}" ]]; then
     yesno "This will replace your existing configuration at ${i3Path}. Do you want to continue?" || exit 0
 fi
@@ -384,7 +385,9 @@ fi)
 $(if command -v transfersh &> /dev/null ; then
     echo 'bindsym t exec bash -c '"'"'fileName="$(yad --title "I38 Upload File" --file)" && url="$(transfersh "${fileName}" | tee >(yad --title "I38 - Uploading ${fileName##*/} ..." --progress --pulsate --auto-close))" && echo "${url#*saved at: }" | tee >(yad --title "I38 - Upload URL" --show-cursor --show-uri --button yad-close --sticky --text-info) >(xclip -selection clipboard)'"', mode \"default\""
 fi)
-
+$(if [[ $keep -eq 0 ]]; then
+    echo "bindsym k exec --no-startup-id $(echo $i3Path)/scripts/keep-uploader.sh, mode \"default\""
+fi)
 #Keyboard based volume Controls with pulseaudio
 bindsym Mod1+Shift+0 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +${volumeJump}% & play -qnG synth 0.03 sin 440
 bindsym Mod1+Shift+9 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -${volumeJump}% & play -qnG synth 0.03 sin 440
@@ -440,6 +443,9 @@ $(if command -v pidgin &> /dev/null ; then
 fi)
 $(if command -v transfersh &> /dev/null ; then
     echo 'bindsym \$mod+t exec bash -c '"'"'fileName="$(yad --title "I38 Upload File" --file)" && url="$(transfersh "${fileName}" | tee >(yad --title "I38 - Uploading ${fileName##*/} ..." --progress --pulsate --auto-close))" && echo "${url#*saved at: }" | tee >(yad --title "I38 - Upload URL" --show-cursor --show-uri --button yad-close --sticky --text-info) >(xclip -selection clipboard)'"'"
+fi)
+$(if [[ $keep -eq 0 ]]; then
+    echo "bindsym \$mod+k exec --no-startup-id $(echo $i3Path)/scripts/keep-uploader.sh"
 fi)
 #Keyboard based volume controls using pulseaudio
 bindsym \$mod+Shift+0 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +${volumeJump}% & play -qnG synth 0.03 sin 440
