@@ -438,7 +438,7 @@ $(if command -v pidgin &> /dev/null ; then
     echo "bindsym \$mod+p exec $(command -v pidgin)"
 fi)
 $(if command -v transfersh &> /dev/null ; then
-    echo 'bindsym \$mod+t exec bash -c '"'"'fileName="$(yad --title "I38 Upload File" --file)" && url="$(transfersh "${fileName}" | tee >(yad --title "I38 - Uploading ${fileName##*/} ..." --progress --pulsate --auto-close))" && echo "${url#*saved at: }" | tee >(yad --title "I38 - Upload URL" --show-cursor --show-uri --button yad-close --sticky --text-info) >(xclip -selection clipboard)'"', mode \"default\""
+    echo 'bindsym \$mod+t exec bash -c '"'"'fileName="$(yad --title "I38 Upload File" --file)" && url="$(transfersh "${fileName}" | tee >(yad --title "I38 - Uploading ${fileName##*/} ..." --progress --pulsate --auto-close))" && echo "${url#*saved at: }" | tee >(yad --title "I38 - Upload URL" --show-cursor --show-uri --button yad-close --sticky --text-info) >(xclip -selection clipboard)'"'"
 fi)
 #Keyboard based volume controls using pulseaudio
 bindsym \$mod+Shift+0 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +${volumeJump}% & play -qnG synth 0.03 sin 440
@@ -456,7 +456,7 @@ bindsym \$mod+Shift+u exec --no-startup-id ${i3Path}/scripts/music_controler.sh 
 #Check battery status
 bindsym \$mod+b exec --no-startup-id ${i3Path}/scripts/battery_status.sh
 #Check controller battery status
-bindsym \$mod+g exec ${i3Path}/scripts/game_controler.sh -s, mode "default"
+bindsym \$mod+g exec ${i3Path}/scripts/game_controler.sh -s
 # Get a list of windows in the current workspace
 bindsym \$mod+apostrophe exec --no-startup-id ${i3Path}/scripts/window_list.sh
 # Restart orca
@@ -467,7 +467,7 @@ bindsym \$mod+Control+semicolon exec bash -c 'i3-msg -t run_command reload && sp
 bindsym \$mod+Control+Shift+semicolon exec bash -c 'i3-msg -t run_command restart && spd-say -P important -Cw "I3 restarted."'
 # exit i3 (logs you out of your X session)
 bindsym \$mod+Control+q exec bash -c 'yad --image "dialog-question" --title "I38" --button=yes:0 --button=no:1 --text "You pressed the exit shortcut. Do you really want to exit i3? This will end your X session." && i3-msg -t run_command exit'
-}
+
 
 
 EOF
