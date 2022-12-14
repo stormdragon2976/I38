@@ -254,13 +254,14 @@ cat << EOF > ${i3Path}/config
 # This config file uses keycodes (bindsym) and was written for the QWERTY
 # layout.
 
-#set mod key
+# set mod key
 set \$mod $mod
 
-#set workspace layout to tapped so apps use most of the screen
+# set workspace layout to tabbed so apps use most of the screen
 workspace_layout tabbed
 
-#set the mouse so it is trapped in focused window
+# set the mouse so it is trapped in focused window
+# this fixes some issues in some games that require focus and pause when focus is moved via mouse accidentally
 focus_follows_mouse no
 
 # Font for window titles. Will also be used by the bar unless a different font
