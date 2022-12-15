@@ -5,6 +5,7 @@
 # Released under the terms of the WTFPL http://www.wtfpl.net
 
 i3Path="${XDG_CONFIG_HOME:-$HOME/.config}/i3"
+i3msg="i3-msg"
 # Dialog accessibility
 export DIALOGOPTS='--no-lines --visit-items'
 
@@ -131,6 +132,7 @@ update_scripts() {
 # Array of command line arguments
 declare -A command=(
     [h]="This help screen."
+    [s]="Create sway configuration instead of i3."
     [u]="Copy over the latest version of scripts."
     [x]="Generate ~/.xinitrc and ~/.xprofile."
     [X]="Generate ~/.xprofile only."
@@ -142,6 +144,10 @@ args="${args//[[:space:]]/}"
 while getopts "${args}" i ; do
     case "$i" in
         h) help;;
+        s)
+            i3msg="swaymsg"
+            i3Path="${XDG_CONFIG_HOME:-$HOME/.config}/sway"
+        ;;
         u) update_scripts;;
         x) write_xinitrc ;&
         X) write_xprofile ;;
@@ -407,11 +413,11 @@ bindsym apostrophe exec --no-startup-id ${i3Path}/scripts/window_list.sh, mode "
 # Restart orca
 bindsym Shift+o exec $(command -v orca) --replace, mode "default"
 # reload the configuration file
-bindsym Control+semicolon exec bash -c 'i3-msg -t run_command reload && spd-say -P important -Cw "I38 Configuration reloaded."', mode "default"
+bindsym Control+semicolon exec bash -c '$i3msg -t run_command reload && spd-say -P important -Cw "I38 Configuration reloaded."', mode "default"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym Control+Shift+semicolon exec bash -c 'i3-msg -t run_command restart && spd-say -P important -Cw "I3 restarted."', mode "default"
+bindsym Control+Shift+semicolon exec bash -c '$i3msg -t run_command restart && spd-say -P important -Cw "I3 restarted."', mode "default"
 # exit i3 (logs you out of your X session)
-bindsym Control+q exec bash -c 'yad --image "dialog-question" --title "I38" --button=yes:0 --button=no:1 --text "You pressed the exit shortcut. Do you really want to exit i3? This will end your X session." && i3-msg -t run_command exit'
+bindsym Control+q exec bash -c 'yad --image "dialog-question" --title "I38" --button=yes:0 --button=no:1 --text "You pressed the exit shortcut. Do you really want to exit i3? This will end your X session." && $i3msg -t run_command exit'
 bindsym Escape mode "default"
 }
 
@@ -463,11 +469,11 @@ bindsym \$mod+apostrophe exec --no-startup-id ${i3Path}/scripts/window_list.sh
 # Restart orca
 bindsym \$mod+Shift+o exec $(command -v orca) --replace
 # reload the configuration file
-bindsym \$mod+Control+semicolon exec bash -c 'i3-msg -t run_command reload && spd-say -P important -Cw "I38 Configuration reloaded."'
+bindsym \$mod+Control+semicolon exec bash -c '$i3msg -t run_command reload && spd-say -P important -Cw "I38 Configuration reloaded."'
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym \$mod+Control+Shift+semicolon exec bash -c 'i3-msg -t run_command restart && spd-say -P important -Cw "I3 restarted."'
+bindsym \$mod+Control+Shift+semicolon exec bash -c '$i3msg -t run_command restart && spd-say -P important -Cw "I3 restarted."'
 # exit i3 (logs you out of your X session)
-bindsym \$mod+Control+q exec bash -c 'yad --image "dialog-question" --title "I38" --button=yes:0 --button=no:1 --text "You pressed the exit shortcut. Do you really want to exit i3? This will end your X session." && i3-msg -t run_command exit'
+bindsym \$mod+Control+q exec bash -c 'yad --image "dialog-question" --title "I38" --button=yes:0 --button=no:1 --text "You pressed the exit shortcut. Do you really want to exit i3? This will end your X session." && $i3msg -t run_command exit'
 
 
 
